@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--
+
+      TMS Application
+      CS275 - Final Project
+      03/07/2018
+      Cole Smith, Daniel Saw, Rishi Patel, Woo Song
+
+    -->
+
+    <title>TMS Application</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">TMS Application</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">Courses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#filters">Filters</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#schedule">Schedule</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="bg-primary text-white">
+      <div class="container text-center">
+        <h1>Schedule Your Term with Zero Stress!</h1>
+        <p class="lead">Select What You Want and Don't Want, and You're Done</p>
+      </div>
+    </header>
+
+    <!-- Courses -->
+    <section id="courses">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Courses</h2>
+            <p class="lead">Enter courses you'd like to enroll for in the order of priority</p>
+            <ul>
+              <li>
+                <input class="courses" type="text" name="course">
+              </li>
+              <li>
+                <input class="courses" type="text" name="course">
+              </li>
+              <li>
+                <input class="courses" type="text" name="course">
+              </li>
+              <li>
+                <input class="courses" type="text" name="course">
+              </li>
+              <li>
+                <input class="courses" type="text" name="course">
+              </li>
+              <li>
+                <button class="btn" id="addMore" type="button">Add More Courses</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section id="filters" class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Filters</h2>
+            <p class="lead">Select what you want or don't want in your schedule</p>
+            <div class="filterItem">
+              <h5>Major / Minor</h5>
+              <p>(Use Ctrl or Command to select multiple majors/minors)</p>
+              <select multiple id="major" size="5">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+                <option value="audi">Audi</option>
+                <option value="audi">Audi</option>
+              </select>
+            </div>
+
+            <div class="filterItem">
+              <h5>Others</h5>
+              <div id="restriction">
+                  <input type="checkbox" value="honors" class="others">Honors Program<br>
+                  <input type="checkbox" value="freshmen" class="others">Freshmen<br>
+                  <input type="checkbox" value="sophmore" class="others">Sophmore
+              </div>
+            </div>
+
+            <div class="filterItem">
+                <h5>Days and Time</h5>
+                <div id="days">
+                    <input type="checkbox" value="monday" class="days">Monday
+                    <input type="checkbox" value="tuesday" class="days">Tuesday
+                    <input type="checkbox" value="wednesday" class="days">Wednesday
+                    <input type="checkbox" value="thursday" class="days">Thursday
+                    <input type="checkbox" value="friday" class="days">Friday
+                </div>
+                <div id="time">
+                    <label>From:</label>
+                    <input type="input" id="fromTime">
+                    <select id="fromDaytime">
+                      <option value="am">AM</option>
+                      <option value="pm">PM</option>
+                    </select>
+                    <br>
+                    <label>To:</label>
+                    <input type="input" id="toTime">
+                    <select id="toDaytime">
+                        <option value="am">AM</option>
+                        <option value="pm">PM</option>
+                    </select>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule -->
+    <section id="schedule">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <div id="displaySchedule"></div>
+            <button class="btn" id="btSchedule" type="button">Schedule</button>
+            <h2 hidden>Schedule</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; TMS Application 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="js/scrolling-nav.js"></script>
+
+  </body>
+
+</html>

@@ -1,0 +1,68 @@
+ /*
+
+ TMS Application
+ CS275 - Final Project
+ 03/07/2018
+ Cole Smith, Daniel Saw, Rishi Patel, Woo Song
+
+*/
+
+
+/* Courses Styles */
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+  padding-bottom: 1rem;
+}
+
+.courses {
+  width: 20rem;
+}
+
+#addMore:hover {
+  background-color: #ababab;
+}
+
+
+/* Filters Styles */
+.filterItem {
+  margin-top: 2rem;
+}
+
+.filterItem:first-of-type h5 {
+  margin: 0;
+}
+
+#major {
+  width: 15rem;
+}
+
+#time {
+  margin-top: 1rem;
+}
+
+
+/* Schedule Styles */
+#btSchedule {
+	background-color:#7892c2;
+	-moz-border-radius:31px;
+	-webkit-border-radius:31px;
+	border-radius:31px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:16px 68px;
+	text-decoration:none;
+}
+#btSchedule:hover {
+	background-color:#476e9e;
+}
+#btSchedule:active {
+	position:relative;
+	top:1px;
+}
