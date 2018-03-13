@@ -29,12 +29,8 @@ li {
 
 
 /* Filters Styles */
-#filters li {
-    margin-bottom: 1rem;
-}
-
-.filterItem-1 h5 {
-    margin-bottom: 0;
+.filterItem {
+	margin-top: 2rem;
 }
 
 #major {
