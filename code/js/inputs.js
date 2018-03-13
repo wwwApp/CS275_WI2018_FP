@@ -10,13 +10,21 @@ var time_data = "";
  * Runs neccessary functions to import all data in lists to sever
  */
 $("#btSchedule").click(function() {
-  course_select();
+  var ticket = document.getElementById('ticketNum').value;
+  if (ticket != "") course_select();
+  else {
+    alert("Testing");
+  }
+});
+
+function add_data()
+{
   mm_select();
   others_select();
   days_select();
   time_inputs();
   format();
-});
+}
 
 /**
  * Adds Course Inputs to course_list to send to server
@@ -29,6 +37,15 @@ function course_select()
     course_list += course_inputs[i].value + ",";
   }
   course_list = course_list.slice(0, -1); // Remove trailing ','
+
+  // Error Checking
+  if (course_list.replace(/[^,]/g, "").length < 3){
+    var error = document.getElementsByClassName('lead');
+    error[1].innerHTML = "Enter courses you'd like to enroll for in the order of priority</p>"
+                       + "<p style='color:red'> Please Enter At Least 4 Courses </p>";
+    window.scrollTo(0, 0);
+  }
+  else add_data();
 }
 
 /**
@@ -60,7 +77,6 @@ function days_select()
     days_list += $(this).val() + ",";
   });
   days_list = days_list.slice(0, -1); // Remove trailing ','
-  alert(days_list);
 }
 
 /**
@@ -72,7 +88,9 @@ function time_inputs()
   var toTime = document.getElementById('toTime').value;
   var fromOpt = $('#fromDaytime option:selected').val();
   var toOpt = $('#toDaytime option:selected').val();
-  time_data += fromTime + fromOpt + ',' + toTime + toOpt;
+  if ( (fromTime != "") && (toTime != "") ) {
+    time_data += fromTime + fromOpt + ',' + toTime + toOpt;
+  }
 }
 
 /**
@@ -88,11 +106,30 @@ function add_more()
 function format()
 {
   var request = "";
-  request += course_list + ":"
-          + major_list + ":"
-          + minor_list + ":"
-          + others_list + ":"
-          + days_list + ":"
-          + time_data + ":";
-  alert(request);
+  request += course_list + ":";
+  if (major_list != "") request += major_list + ":";
+  if (minor_list != "") request +=  minor_list + ":";
+  if (others_list != "") request += others_list + ":";
+  if (days_list != "") request += days_list + ":";
+  if (time_data != "") request += time_data + ":";
+  request = request.slice(0, -1); // Removing trailing ':'
+  request_schedule(request);
+}
+
+function request_schedule(request)
+{
+  var url = "";
+
+  $.ajax({
+    type: "GET",
+    url: url,
+    data: request,
+    dataType: "html",
+    success: function(msg){
+
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      alert("Could not retrieve schedule at this time, please try again later.");
+    }
+  });
 }
