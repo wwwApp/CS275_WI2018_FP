@@ -15,6 +15,7 @@ $("#btSchedule").click(function() {
   others_select();
   days_select();
   time_inputs();
+  format();
 });
 
 /**
@@ -82,4 +83,16 @@ function add_more()
   var replace_str = "<li> <input class='courses' type='text' name='course' placeholder='i.e. CS275'> </li>"
                   + "<li> <button class='btn' id='addMore' type='button' onclick='add_more()'>Add More Courses</button>";
   $("#addMore").replaceWith(replace_str);
+}
+
+function format()
+{
+  var request = "";
+  request += course_list + ":"
+          + major_list + ":"
+          + minor_list + ":"
+          + others_list + ":"
+          + days_list + ":"
+          + time_data + ":";
+  alert(request);
 }
