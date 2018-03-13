@@ -13,7 +13,7 @@ ul {
     padding-left: 0;
 }
 
-li {
+#courses li {
     list-style: none;
     padding-bottom: 1rem;
 }
