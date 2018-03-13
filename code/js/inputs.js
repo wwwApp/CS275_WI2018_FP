@@ -11,7 +11,7 @@ var time_data = "";
  */
 $("#btSchedule").click(function() {
   var ticket = document.getElementById('ticketNum').value;
-  if (ticket != "") course_select();
+  if (ticket == "") course_select();
   else {
     alert("Testing");
   }
