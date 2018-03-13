@@ -43,6 +43,15 @@ ul {
 
 
 /* Schedule Styles */
+#ticketDiv {
+	display: block;
+	padding-bottom: 1rem;
+}
+
+#ticketDiv input {
+	width: 20rem;
+}
+
 #btSchedule {
 	background-color:#7892c2;
 	-moz-border-radius:31px;
