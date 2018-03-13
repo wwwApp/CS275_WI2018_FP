@@ -79,7 +79,7 @@ function time_inputs()
  */
 function add_more()
 {
-  var replace_str = "<li> <input class='courses' type='text' name='course'> </li>"
+  var replace_str = "<li> <input class='courses' type='text' name='course' placeholder='i.e. CS275'> </li>"
                   + "<li> <button class='btn' id='addMore' type='button' onclick='add_more()'>Add More Courses</button>";
   $("#addMore").replaceWith(replace_str);
 }
