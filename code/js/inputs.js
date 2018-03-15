@@ -13,10 +13,13 @@ $("#btSchedule").click(function() {
   var ticket = document.getElementById('ticketNum').value;
   if (ticket == "") course_select();
   else {
-    alert("Testing");
+    getSchedule(ticket);
   }
 });
 
+/**
+ * Runs required functions to retrieve data
+ */
 function add_data()
 {
   mm_select();
@@ -24,6 +27,19 @@ function add_data()
   days_select();
   time_inputs();
   format();
+}
+
+/**
+ * Resets all inputted data
+ */
+function reset()
+{
+  course_list = "";
+  major_list = "";
+  minor_list = "";
+  others_list = "";
+  days_list = "";
+  time_data = "";
 }
 
 /**
@@ -103,6 +119,9 @@ function add_more()
   $("#addMore").replaceWith(replace_str);
 }
 
+/**
+ * Formats and put inputed data into one string
+ */
 function format()
 {
   var request = "";
@@ -116,9 +135,12 @@ function format()
   request_schedule(request);
 }
 
+/**
+ * Sends an GET request to server to retrieve schedule data
+ */
 function request_schedule(request)
 {
-  var url = "";
+  var url = "http://localhost:8080/";
 
   $.ajax({
     type: "GET",
@@ -130,6 +152,29 @@ function request_schedule(request)
     },
     error: function (xhr, ajaxOptions, thrownError) {
       alert("Could not retrieve schedule at this time, please try again later.");
+    }
+  });
+  request = "";
+  reset();
+}
+
+/**
+ * Sends a GET Request to retreive schedule according to ticket key
+ */
+function getSchedule(ticket)
+{
+  var url = "http://localhost:8080/";
+
+  $.ajax({
+    type: "GET",
+    url: url,
+    data: ticket,
+    dataType: "html",
+    success: function(msg){
+
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      alert("Incorrect Ticket.");
     }
   });
 }
