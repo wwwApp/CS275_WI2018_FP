@@ -33,6 +33,10 @@ ul {
 	margin-top: 2rem;
 }
 
+.dayTime h5{
+	margin-bottom: 0;
+}
+
 #major {
     width: 15rem;
 }

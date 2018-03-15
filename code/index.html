@@ -99,7 +99,7 @@
           <div class="col-lg-8 mx-auto">
             <h2>Filters</h2>
             <p class="lead">Select what you want or don't want in your schedule</p>
-            <div class="filterItem">
+            <!--<div class="filterItem">
               <h5>Major / Minor</h5>
               <p>(Use Ctrl or Command to select multiple majors/minors)</p>
               <select multiple id="major" size="5">
@@ -110,19 +110,20 @@
                 <option value="audi">Audi</option>
                 <option value="audi">Audi</option>
               </select>
-            </div>
+            </div>-->
 
-            <div class="filterItem">
-              <h5>Others</h5>
+            <div class="filterItem restriction">
+              <h5>Restriction</h5>
               <div id="restriction">
                   <input type="checkbox" value="honors" class="others">Honors Program<br>
-                  <input type="checkbox" value="freshmen" class="others">Freshmen<br>
-                  <input type="checkbox" value="sophmore" class="others">Sophmore
+                  <!--<input type="checkbox" value="freshmen" class="others">Freshmen<br>
+                  <input type="checkbox" value="sophmore" class="others">Sophmore-->
               </div>
             </div>
 
-            <div class="filterItem">
+            <div class="filterItem dayTime">
                 <h5>Days and Time</h5>
+                <p>(Select days and time you don't want to include in your schedule)</p>
                 <div id="days">
                     <input type="checkbox" value="M" class="days">Monday
                     <input type="checkbox" value="T" class="days">Tuesday
@@ -156,12 +157,12 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto">
-            <div id="displaySchedule"></div>
             <div id="ticketDiv">
               <label>Ticket Number: </label>
               <input type="input" id="ticketNum">
             </div>
             <button class="btn" id="btSchedule" type="button">Schedule</button>
+            <div id="displaySchedule"></div>
             <h2 hidden>Schedule</h2>
           </div>
         </div>
