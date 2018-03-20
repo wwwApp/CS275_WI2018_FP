@@ -10,11 +10,7 @@ var time_data = "";
  * Runs neccessary functions to import all data in lists to sever
  */
 $("#btSchedule").click(function() {
-  var ticket = document.getElementById('ticketNum').value;
-  if (ticket == "") course_select();
-  else {
-    getSchedule(ticket);
-  }
+  course_select();
 });
 
 /**
@@ -48,14 +44,18 @@ function reset()
  */
 function course_select()
 {
+  courseID = "";
+  courseNUM  = "";
   var course_inputs = document.getElementsByClassName('courses');
   for (var i = 0; course_inputs[i].value; i++){
-    course_list += course_inputs[i].value + ",";
+    courseID = course_inputs[i].value.split(/[0-9]/)[0];
+    courseNUM = course_inputs[i].value.slice(courseID.length, course_inputs[i].value.length);
+    course_list += courseID + "," + courseNUM + ";";
   }
   course_list = course_list.slice(0, -1); // Remove trailing ','
 
   // Error Checking
-  if (course_list.replace(/[^,]/g, "").length < 3){
+  if (course_list.replace(/[^;]/g, "").length < 3){
     var error = document.getElementsByClassName('lead');
     error[1].innerHTML = "Enter courses you'd like to enroll for in the order of priority</p>"
                        + "<p style='color:red'> Please Enter At Least 4 Courses </p>";
@@ -78,10 +78,11 @@ function mm_select()
  */
 function others_select()
 {
+
+  others_list = 0;
   $('.others:checked').each(function(i) {
-    others_list += $(this).val() + ",";
+    others_list = 1;
   });
-  others_list = others_list.slice(0, -1); // Remove trailing ','
 }
 
 /**
@@ -90,9 +91,8 @@ function others_select()
 function days_select()
 {
   $('.days:checked').each(function(i) {
-    days_list += $(this).val() + ",";
+    days_list += $(this).val();
   });
-  days_list = days_list.slice(0, -1); // Remove trailing ','
 }
 
 /**
@@ -105,7 +105,7 @@ function time_inputs()
   var fromOpt = $('#fromDaytime option:selected').val();
   var toOpt = $('#toDaytime option:selected').val();
   if ( (fromTime != "") && (toTime != "") ) {
-    time_data += fromTime + fromOpt + ',' + toTime + toOpt;
+    time_data += fromTime + "_" + fromOpt + '_-_' + toTime + "_" + toOpt;
   }
 }
 
@@ -125,13 +125,10 @@ function add_more()
 function format()
 {
   var request = "";
-  request += course_list + ":";
-  if (major_list != "") request += major_list + ":";
-  if (minor_list != "") request +=  minor_list + ":";
-  if (others_list != "") request += others_list + ":";
-  if (days_list != "") request += days_list + ":";
-  if (time_data != "") request += time_data + ":";
-  request = request.slice(0, -1); // Removing trailing ':'
+  request += "classls=" + course_list;
+  if (others_list != "") request += "&honors=" + others_list;
+  if (days_list != "") request += "&timeoff=" + days_list;
+  if (time_data != "") request += "," + time_data;
   request_schedule(request);
 }
 
@@ -140,7 +137,14 @@ function format()
  */
 function request_schedule(request)
 {
-  var url = "http://localhost:8080/";
+  var url = "http://localhost:8080/getSchedules?"
+          + "classls=" + course_list
+          + "&honors=" + others_list
+          + "&timeoff=" + days_list + "," + time_data;
+
+  // Checking Purposes
+  alert(url);
+  alert(request);
 
   $.ajax({
     type: "GET",
@@ -148,7 +152,7 @@ function request_schedule(request)
     data: request,
     dataType: "html",
     success: function(msg){
-
+      alert("Working");
     },
     error: function (xhr, ajaxOptions, thrownError) {
       alert("Could not retrieve schedule at this time, please try again later.");
@@ -156,25 +160,4 @@ function request_schedule(request)
   });
   request = "";
   reset();
-}
-
-/**
- * Sends a GET Request to retreive schedule according to ticket key
- */
-function getSchedule(ticket)
-{
-  var url = "http://localhost:8080/";
-
-  $.ajax({
-    type: "GET",
-    url: url,
-    data: ticket,
-    dataType: "html",
-    success: function(msg){
-
-    },
-    error: function (xhr, ajaxOptions, thrownError) {
-      alert("Incorrect Ticket.");
-    }
-  });
 }
