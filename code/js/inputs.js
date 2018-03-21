@@ -55,7 +55,7 @@ function course_select()
   course_list = course_list.slice(0, -1); // Remove trailing ','
 
   // Error Checking
-  if (course_list.replace(/[^;]/g, "").length < 3){
+  if (course_list.replace(/[^;]/g, "").length < 2){
     var error = document.getElementsByClassName('lead');
     error[1].innerHTML = "Enter courses you'd like to enroll for in the order of priority</p>"
                        + "<p style='color:red'> Please Enter At Least 4 Courses </p>";
@@ -139,20 +139,24 @@ function request_schedule(request)
 {
   var url = "http://localhost:8080/getSchedules?"
           + "classls=" + course_list
-          + "&honors=" + others_list
-          + "&timeoff=" + days_list + "," + time_data;
+          + "&honors=" + others_list;
 
-  // Checking Purposes
+  if (days_list != "") {
+    url += "&timeoff=" + days_list + "," + time_data;
+  }
+
+  var table = document.getElementById('displaySchedule');
+
   alert(url);
-  alert(request);
+  table.innerHTML = "Loading...";
 
   $.ajax({
     type: "GET",
     url: url,
-    data: request,
+    data: '{}',
     dataType: "html",
     success: function(msg){
-      alert("Working");
+      table.innerHTML = msg;
     },
     error: function (xhr, ajaxOptions, thrownError) {
       alert("Could not retrieve schedule at this time, please try again later.");

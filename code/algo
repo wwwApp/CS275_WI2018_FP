@@ -1,0 +1,11 @@
+Contains algorithms for various TMS web application:
+
+Schedule Making Algorithm:
+[class1, class2, class3, class4]
+
+choose class1
+if there is a lab start loop and choose labi
+  check if labi has conflicts
+  if labi has no conflicts
+  add it to current Schedule and
+  
