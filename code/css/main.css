@@ -18,6 +18,7 @@ ul {
     padding-bottom: 1rem;
 }
 
+
 /* Courses Styles */
 .courses {
     width: 20rem;
@@ -37,25 +38,12 @@ ul {
 	margin-bottom: 0;
 }
 
-/*#major {
-    width: 15rem;
-}*/
-
 #time {
     margin-top: 1rem;
 }
 
 
 /* Schedule Styles */
-/*#ticketDiv {
-	display: block;
-	padding-bottom: 1rem;
-}
-
-#ticketDiv input {
-	width: 20rem;
-}*/
-
 #btSchedule {
 	background-color:#7892c2;
 	-moz-border-radius:31px;
@@ -69,10 +57,16 @@ ul {
 	padding:16px 68px;
 	text-decoration:none;
 }
+
 #btSchedule:hover {
 	background-color:#476e9e;
 }
+
 #btSchedule:active {
 	position:relative;
 	top:1px;
+}
+
+#displaySchedule table {
+	margin-top: 3rem;
 }
