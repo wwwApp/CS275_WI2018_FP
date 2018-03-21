@@ -47,10 +47,12 @@ function course_select()
   courseID = "";
   courseNUM  = "";
   var course_inputs = document.getElementsByClassName('courses');
-  for (var i = 0; course_inputs[i].value; i++){
-    courseID = course_inputs[i].value.split(/[0-9]/)[0];
-    courseNUM = course_inputs[i].value.slice(courseID.length, course_inputs[i].value.length);
-    course_list += courseID + "," + courseNUM + ";";
+  for (var i = 0; i<course_inputs.length; i++){
+    if (course_inputs[i].value != '') {
+      courseID = course_inputs[i].value.split(/[0-9]/)[0];
+      courseNUM = course_inputs[i].value.slice(courseID.length, course_inputs[i].value.length);
+      course_list += courseID + "," + courseNUM + ";";
+    }
   }
   course_list = course_list.slice(0, -1); // Remove trailing ','
 
@@ -58,7 +60,7 @@ function course_select()
   if (course_list.replace(/[^;]/g, "").length < 2){
     var error = document.getElementsByClassName('lead');
     error[1].innerHTML = "Enter courses you'd like to enroll for in the order of priority</p>"
-                       + "<p style='color:red'> Please Enter At Least 4 Courses </p>";
+                       + "<p style='color:red'> Please Enter At Least 3 Courses </p>";
     window.scrollTo(0, 0);
   }
   else add_data();
@@ -147,7 +149,6 @@ function request_schedule(request)
 
   var table = document.getElementById('displaySchedule');
 
-  alert(url);
   table.innerHTML = "Loading...";
 
   $.ajax({
