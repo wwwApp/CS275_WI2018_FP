@@ -10,13 +10,12 @@ var classList = [];
 var cntr = 0;
 var completedCntr = 0;
 
-//send the class number and subject here
 class ClassParser extends EventEmitter {
 	constructor() {
-		//this will only be called once, you need something to clear the table on each call
 		super();
 	}
 
+	//gets a list of all classes that were sent back in request
 	getClassList(clsLs) {
 		var self = this;
 		emitter.once("completedList", function(msg) {
@@ -30,8 +29,10 @@ class ClassParser extends EventEmitter {
 
 }
 
+//class that is exported for use in ScheduleMaker file
 exports.ClassParser = ClassParser;
 
+//callback function that is used by request
 function callback(error, response, body) {
 		if (!error && response.statusCode == 200) {
 				var $ = cheerio.load(body);
@@ -147,7 +148,6 @@ function parseRow(row) {
 			normalrecittationtime : arr[52],
 			recitationtime : arr[52]
 		}
-		//console.log(classObj);
 		return classObj;
 	}
 	else {
@@ -161,13 +161,11 @@ function parseRow(row) {
 			normaltime : arr[41],
 			time : arr[41]
 		}
-
 		return classObj;
 	}
 }
 
 //makes a request to Drexel's TMS with a specific course number
-//switched params here
 function makeRequest(crsSub, crsNum) {
 	var options = {
     	url: 'https://termmasterschedule.drexel.edu/webtms_du/app?formids=term%2CcourseName%2CcrseNumb%2Ccrn&component=searchForm&page=Home&service=direct&submitmode=submit&submitname=&term=1&crseNumb='+crsNum,
@@ -176,6 +174,7 @@ function makeRequest(crsSub, crsNum) {
 	request(options, callback.bind({subject : crsSub}));
 }
 
+//makes multiple requests from a list of classes
 function getClasses(crsList) {
 	completedCntr = crsList.length;
 	for(var i = 0; i < crsList.length; i++) {

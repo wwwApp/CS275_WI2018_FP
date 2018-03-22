@@ -5,6 +5,7 @@ var app = express();
 app.use(express.static("."));
 var parser = new tmsparser.ClassParser();
 
+//request function used for sending back html table of scheduled classes
 app.get("/getSchedules", function(req, res) {
   var classls = req.query.classls;
   classls = parseInput(classls);
@@ -78,6 +79,7 @@ app.get("/getSchedules", function(req, res) {
 
 });
 
+//function used for filtering honor classes
 function filterHonors(classls, showHonors) {
   var onlyhonors = [];
   var nohonors = [];
@@ -106,6 +108,7 @@ function filterHonors(classls, showHonors) {
   }
 }
 
+//function that is used for parsing time into 24 hour format and then into an integer
 function parseTime(timeString) {
 	var timeArr = timeString.split(/[\s:]+/);
 	var milArr = [0,0];
@@ -130,7 +133,7 @@ function parseTime(timeString) {
 }
 
 
-
+//parses the input that is sent as a request to the server
 function parseInput(inp) {
   var splitClasses = inp.split(";");
   var currentClass;
@@ -141,6 +144,7 @@ function parseInput(inp) {
   return splitClasses;
 }
 
+//removes any invalid combinations involving honors classes
 function removeInvalidHonors(scheduleLs) {
   var newScheduleLs = [];
   for(var i = 0; i < scheduleLs.length; i++) {
@@ -151,6 +155,7 @@ function removeInvalidHonors(scheduleLs) {
   return newScheduleLs;
 }
 
+//checks if a schedule is a valid honors class
 function isValidHonors(schedule) {
   for(var i = 0; i < schedule.length; i++) {
     if(schedule[i].section.includes("H")) {
@@ -166,6 +171,7 @@ function isValidHonors(schedule) {
   return true;
 }
 
+//function that is used as an operation for list manipulation during schedule generation
 function dist_concat(el, ls) {
   var curr = [];
   var newLs = [];
@@ -178,6 +184,7 @@ function dist_concat(el, ls) {
   return newLs;
 }
 
+//gets possible combinations of a schedule given two lists formatted a certain way
 function getCombinations(ls, oldMasterLs) {
   var masterLs = [];
   var currLs = [];
@@ -191,6 +198,7 @@ function getCombinations(ls, oldMasterLs) {
   return masterLs;
 }
 
+//gets all possible combinations of a schedule given a single list formatted a certain way
 function getAllCombinations(ls) {
   var masterLs = [];
   var currentLs = getCombinations(ls[ls.length-1], [[]]);
@@ -200,6 +208,7 @@ function getAllCombinations(ls) {
   return currentLs;
 }
 
+//gets all the schedules given the class list
 function getSchedules(classLs) {
   var schedules = getAllCombinations(classLs)
   var masterSchedule = [];
@@ -211,8 +220,7 @@ function getSchedules(classLs) {
   return masterSchedule;
 }
 
-
-//checks if the current classes are valid for first part
+//checks if the current classes are valid for first stage of class generation
 function isValidSchedule(currentLs) {
   for(var i = 0; i < currentLs.length; i++) {
     for(var j = i+1; j < currentLs.length; j++) {
@@ -224,10 +232,8 @@ function isValidSchedule(currentLs) {
   return true;
 }
 
-
-//checks for time conflicts by distributing time and checking for overlap
+//checks for time conflicts given two classes
 function hasConflict(classObj1, classObj2) {
-
   if(classObj1.type == "Lab &amp; Recitation" && classObj2.type == "Lab &amp; Recitation") {
     var labtime1 = classObj1.labtime;
     var recitationtime1 = classObj1.recitationtime;
@@ -269,6 +275,7 @@ function hasConflict(classObj1, classObj2) {
   }
 }
 
+//checks for time conflicts given times and days
 function hasTimeConflict(time1, day1, time2, day2) {
   if((day1.includes("M") && day2.includes("M")) ||
      (day1.includes("T") && day2.includes("T")) ||
