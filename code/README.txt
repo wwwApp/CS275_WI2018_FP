@@ -20,7 +20,6 @@ The code written by the team:
     - css/main.css
     - js/inputs.js
 - Server Side:
-    - algo
     - ScheduleMaker.js
     - TMSParser.js
 - The rest are from Bootsrap templates and NodeJs modules
